@@ -1,24 +1,23 @@
 { pkgs, lib, ... }:
 
 let
-  INITIAL_INSTALL = builtins.getEnv "INITIAL_INSTALL" == "1";
+  secureBootEnabled = false;
 in
 {
   boot.loader = {
     systemd-boot = {
-      enable = lib.mkForce INITIAL_INSTALL;
-      configurationLimit = 30;
+      enable = lib.mkForce (!secureBootEnabled);
     };
     efi.canTouchEfiVariables = true;
     timeout = 10;
   };
 
   boot.lanzaboote = {
-    enable = !INITIAL_INSTALL;
+    enable = secureBootEnabled;
     pkiBundle = "/var/lib/sbctl";
   };
 
-  boot.initrd.systemd.enable = !INITIAL_INSTALL;
+  boot.initrd.systemd.enable = secureBootEnabled;
 
   boot.supportedFilesystems = [ "btrfs" ];
   boot.kernelModules = [
@@ -33,7 +32,10 @@ in
   ];
 
   nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
     substituters = [
       "https://cache.nixos.org/"
       "https://nix-community.cachix.org"

@@ -13,7 +13,7 @@ sudo nix --experimental-features "nix-command flakes" run github:nix-community/d
 
 echo ""
 echo "==> Installing NixOS..."
-sudo INITIAL_INSTALL=1 nixos-install --flake .#minimal-secureboot --no-root-passwd
+sudo nixos-install --flake .#minimal-secureboot --no-root-passwd
 
 echo ""
 echo "==> Setting root password to 'nixos'..."
