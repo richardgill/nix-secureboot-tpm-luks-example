@@ -3,7 +3,7 @@
 set -e
 
 echo "==> Cloning repository..."
-[ -d /tmp/nixos-config ] && rm -rf /tmp/nixos-config
+[ -d /tmp/nixos-config ] && sudo rm -rf /tmp/nixos-config
 git clone "https://github.com/richardgill/nix-secureboot-tpm-luks-example" /tmp/nixos-config
 cd /tmp/nixos-config
 
