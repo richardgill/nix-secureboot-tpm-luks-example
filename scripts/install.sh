@@ -23,4 +23,4 @@ echo ""
 echo "==> Installation complete!"
 echo "==> Rebooting in 5 seconds..."
 sleep 5
-reboot
+sudo reboot
